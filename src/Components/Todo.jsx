@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import todo_icon from "../assets/todo_icon.png";
 import TodoItems from "./TodoItems";
+import StickyNoteItems from "./StickyNoteItems";
 
 const Todo = () => {
 
@@ -63,6 +64,13 @@ const Todo = () => {
                 return <TodoItems key={index} text={item.text} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} toggle={toggle}/>
             })}
         </div>
+
+        <div className="flex items-center mt-7 gap-2">
+            <img className="w-8" src={todo_icon} alt="todo_icon"/>
+            <h1 className="text-3xl font-semibold">Sticky Notes</h1>
+        </div>
+
+        <StickyNoteItems />
     </div>
   )
 }
