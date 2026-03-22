@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaListUl } from "react-icons/fa";
 import back from "../assets/back.svg"
+import { FaChevronRight } from 'react-icons/fa'
 
 const LIST_COLORS = ["#BA9BD9", "#F28B82", "#4FC3F7", "#34A853", "#FBBC04"];
 
@@ -117,7 +118,7 @@ const MyLists = ({ lists, addList }) => {
                   <FaListUl className="text-white text-sm" />
                 </div>
                 <span className="text-slate-700 font-medium">{list.name}</span>
-                <span className="ml-auto text-gray-400">›</span>
+                <FaChevronRight className="ml-auto text-gray-400 text-xl" />
               </button>
             ))}
           </div>

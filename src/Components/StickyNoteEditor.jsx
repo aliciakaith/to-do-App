@@ -6,6 +6,7 @@ import back from "../assets/back.svg"
 const StickyNoteEditor = ({closeNote, updateNote, selectedNote, stickyNotes}) => {
 
   const currentNote = stickyNotes.find((note) => note.id === selectedNote)
+  if (!currentNote) return null
 
   return (
 

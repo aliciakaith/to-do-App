@@ -133,14 +133,13 @@ const Todo = ({lists, setLists}) => {
           <div className="flex items-center my-7 bg-gray-200 rounded-full">
             <input
               ref={inputRef}
-              className="bg-transparent border-0 outline-none flex-1 h-14 pl-6 pr-2 placeholder:text-slate-400"
+              className="bg-transparent border-0 outline-none flex-1 h-12 pl-5 pr-2 placeholder:text-slate-400 text-sm"
               type="text"
               placeholder="Add your task"
             />
             <button
               onClick={add}
-              className="border-none rounded-full bg-[#BA9BD9] w-32 h-14 text-white text-lg font-medium cursor-pointer"
-            >
+              className="border-none rounded-full bg-[#BA9BD9] px-6 h-12 text-white text-sm font-medium cursor-pointer">
               ADD
             </button>
           </div>
