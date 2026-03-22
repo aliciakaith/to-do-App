@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import todo_icon from "../assets/todo_icon.png";
 import TodoItems from "./TodoItems";
 import StickyNoteItems from "./StickyNoteItems";
@@ -7,11 +7,19 @@ import StickyNoteEditor from "./StickyNoteEditor";
 import { useParams, useNavigate } from 'react-router-dom'
 import back from "../assets/back.svg"
 import { FaListUl } from "react-icons/fa";
+import TimerPopup from "./TimerPopup";
 
 const Todo = ({lists, setLists}) => {
 
   const [editorOpen, setEditorOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
+  const [timerOpen, setTimerOpen] = useState(false);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [selectedTodoTimer, setSelectedTodoTimer] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false)
+  const [totalTime, setTotalTime] = useState(0)
 
   const inputRef = useRef();  
   const { id } = useParams()
@@ -26,6 +34,34 @@ const Todo = ({lists, setLists}) => {
       )
     )
   }
+
+  const openTimer = (timerId) => {
+    if (timerRunning) {
+        setTimerOpen(true) // reopen the existing timer instead of alerting
+    } else {
+        setSelectedTodoTimer(timerId)
+        setTimerOpen(true)
+    }}
+
+  const closeTimer = () => {
+    setTimerOpen(false);
+  }
+
+  const intervalRef = useRef(null)
+  
+  useEffect(() => {
+    if (timerStarted && !isPaused && timeLeft > 0) {
+        intervalRef.current = setInterval(() => {
+            setTimeLeft((prev) => prev - 1)
+        }, 1000)
+    } else if (timeLeft === 0 && timerStarted) {
+        clearInterval(intervalRef.current)
+        setTimerRunning(false)
+        setTimerStarted(false)
+        alert("Time's up! ⏰")
+    }
+    return () => clearInterval(intervalRef.current)
+  }, [timerStarted, isPaused, timeLeft])
 
   // ── Todo functions ──
 
@@ -153,6 +189,9 @@ const Todo = ({lists, setLists}) => {
                 isComplete={item.isComplete}
                 deleteTodo={deleteTodo}
                 toggle={toggle}
+                openTimer={openTimer}
+                selectedTodoTimer={selectedTodoTimer}
+                timerRunning={timerRunning}
               />
             ))}
           </div>
@@ -183,6 +222,7 @@ const Todo = ({lists, setLists}) => {
           </div>
         </div>
       )}
+      {timerOpen && ( <TimerPopup closeTimer={closeTimer} setTimerRunning={setTimerRunning} timerStarted={timerStarted} setTimerStarted={setTimerStarted} timeLeft={timeLeft} setTimeLeft={setTimeLeft} totalTime={totalTime} setTotalTime={setTotalTime} isPaused={isPaused} setIsPaused={setIsPaused}/>)}
     </div>
   )
 }
