@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoPauseOutline, IoPlayOutline, IoRefreshOutline } from "react-icons/io5";
-
+import back from "../assets/back.svg"
 
 const TimerPopup = ({ closeTimer, setTimerRunning, timerStarted, setTimerStarted, timeLeft, setTimeLeft, totalTime, setTotalTime, isPaused, setIsPaused }) => {
 
@@ -53,12 +53,12 @@ const TimerPopup = ({ closeTimer, setTimerRunning, timerStarted, setTimerStarted
       <div className="bg-white rounded-2xl w-11/12 max-w-sm overflow-hidden shadow-xl">
 
         {/* Top nav */}
-        <div className="bg-[#E5E7EB] px-5 py-4">
+        <div className="bg-[#E5E7EB] px-6 h-12 flex items-center">
           <button
             onClick={() => { closeTimer(); if (!timerStarted) setTimerRunning(false); }}
-            className="text-gray-600 bg-transparent border-none cursor-pointer text-lg"
+            className="flex items-center gap-1 bg-transparent border-none cursor-pointer w-fit"
           >
-            ‹ Lists
+            <img src={back} />
           </button>
         </div>
 
